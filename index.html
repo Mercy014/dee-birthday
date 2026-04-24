@@ -6,108 +6,141 @@
 <title>For Dee ❤</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', sans-serif;
-        overflow: hidden;
-        color: white;
-    }
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    color: white;
+}
 
-    .bg {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        background: url('dee.jpg') center/cover no-repeat;
-        filter: brightness(0.5);
-    }
+/* Background */
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url('dee.jpg') center/cover no-repeat;
+    filter: brightness(0.5);
+    z-index: 0;
+}
 
-    .overlay {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-        padding: 20px;
-        z-index: 2;
-    }
+/* Overlay */
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    z-index: 2;
+}
 
-    .tap {
-        font-size: 1.5em;
-        background: rgba(0,0,0,0.6);
-        padding: 15px 25px;
-        border-radius: 10px;
-        cursor: pointer;
-        animation: pulse 1.5s infinite;
-    }
+/* Start button */
+.tap {
+    font-size: 1.5em;
+    background: rgba(0,0,0,0.6);
+    padding: 15px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+}
 
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-    }
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
 
-    .content {
-        display: none;
-        max-width: 700px;
-    }
+/* Content */
+.content {
+    display: none;
+    max-width: 700px;
+}
 
-    h1 {
-        font-size: 2.5em;
-        color: #ffccdd;
-        margin-bottom: 20px;
-    }
+h1 {
+    font-size: 2.5em;
+    color: #ffccdd;
+    margin-bottom: 20px;
+}
 
-    /* Bounce */
-    @keyframes bounceIn {
-        0% { transform: scale(0.3) translateY(-200px); opacity: 0; }
-        50% { transform: scale(1.1) translateY(20px); opacity: 1; }
-        70% { transform: scale(0.95) translateY(-10px); }
-        100% { transform: scale(1) translateY(0); }
-    }
+/* Bounce title */
+@keyframes bounceIn {
+    0% { transform: scale(0.3) translateY(-200px); opacity: 0; }
+    50% { transform: scale(1.1) translateY(20px); opacity: 1; }
+    70% { transform: scale(0.95) translateY(-10px); }
+    100% { transform: scale(1) translateY(0); }
+}
 
-    .bounce {
-        animation: bounceIn 1s ease;
-    }
+.bounce {
+    animation: bounceIn 1s ease;
+}
 
-    /* Typing text */
-    .line {
-        margin: 10px 0;
-        font-size: 1.2em;
-        min-height: 1.5em;
-    }
+/* Lines */
+.line {
+    margin: 10px 0;
+    font-size: 1.2em;
+    min-height: 1.5em;
+}
 
-    /* Floating hearts */
-    .heart {
-        position: fixed;
-        color: #ff4d6d;
-        font-size: 20px;
-        animation: floatUp linear forwards;
-        z-index: 1;
-        pointer-events: none;
-    }
+/* Floating hearts */
+.heart {
+    position: fixed;
+    color: #ff4d6d;
+    font-size: 20px;
+    animation: floatUp linear forwards;
+    z-index: 1;
+    pointer-events: none;
+}
 
-    @keyframes floatUp {
-        0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-        20% { opacity: 1; }
-        100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-    }
+@keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+}
 
-    /* Burst */
-    .burst {
-        position: fixed;
-        font-size: 22px;
-        color: #ff3366;
-        animation: explode 2s ease-out forwards;
-        z-index: 3;
-    }
+/* Text fly out */
+.fly-out {
+    animation: flyOut 1.2s forwards;
+}
 
-    @keyframes explode {
-        0% { transform: scale(0.5); opacity: 1; }
-        100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
+@keyframes flyOut {
+    to {
+        transform: translateY(-200px) scale(0.5);
+        opacity: 0;
     }
+}
+
+/* Final heart */
+#finalHeart {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 70px;
+    cursor: pointer;
+    z-index: 5;
+    transition: transform 0.5s ease;
+}
+
+#finalHeart.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Burst */
+.burst {
+    position: fixed;
+    font-size: 22px;
+    color: #ff3366;
+    animation: explode 2s ease-out forwards;
+    z-index: 3;
+}
+
+@keyframes explode {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
+}
 </style>
 </head>
 
@@ -127,7 +160,7 @@
         <div class="line" data-text="interacting😚 with you and learning from you🤗."></div>
         <div class="line" data-text="If last year's april meets this year's april me,"></div>
         <div class="line" data-text="she will be super proud of whom i have grown😊,"></div>
-        <div class="line" data-text="Into, and you're the master piece of it,"></div>
+        <div class="line" data-text="Into, and you're the master mind of it,"></div>
         <div class="line" data-text="every moment that we have shared, has an impact💘 on me,"></div>
         <div class="line" data-text="some aren't that pleasing😒but the major are the best😌💙,"></div>
         <div class="line" data-text="May the Most High Lord bless you abundantly"></div>
@@ -136,12 +169,14 @@
         <div class="line" data-text="I don't have much to make your birthday memorable,may this leave a mark in your heart🥰"></div>
         <div class="line" data-text="just know that this was tailored with lots of love❤,"></div>
         <div class="line" data-text="Happiest birthday, mister tall, dark and handsome 😘"></div>
-    </div>
 </div>
+
+<div id="finalHeart" onclick="restart()">❤</div>
 
 <audio id="music" src="oasis.mp3"></audio>
 
 <script>
+let heartInterval;
 let partyTriggered = false;
 
 function start() {
@@ -153,23 +188,16 @@ function start() {
 
     document.getElementById('title').classList.add('bounce');
 
-    typeLines(); // start typing immediately
+    typeLines();
 
-    setInterval(createHeart, 300);
+    heartInterval = setInterval(createHeart, 300);
 
-    music.addEventListener("timeupdate", () => {
-        if (music.currentTime >= 39 && !partyTriggered) {
-            partyTriggered = true;
-            partyBurst();
-        }
-    });
+    music.addEventListener("ended", endScene);
 }
 
-// WORD-BY-WORD typing
+/* Typing effect */
 function typeLines() {
     let lines = document.querySelectorAll('.line');
-    let speed = 250; // typing speed per word
-
     let delay = 0;
 
     lines.forEach(line => {
@@ -180,14 +208,14 @@ function typeLines() {
         words.forEach((word, i) => {
             setTimeout(() => {
                 line.textContent += (i === 0 ? "" : " ") + word;
-            }, delay + (i * speed));
+            }, delay + i * 200);
         });
 
-        delay += words.length * speed + 400; // small gap before next line
+        delay += words.length * 200 + 400;
     });
 }
 
-// Floating hearts
+/* Floating hearts */
 function createHeart() {
     let heart = document.createElement("div");
     heart.className = "heart";
@@ -201,24 +229,29 @@ function createHeart() {
     setTimeout(() => heart.remove(), 6000);
 }
 
-// Party burst
-function partyBurst() {
-    for (let i = 0; i < 80; i++) {
-        let b = document.createElement("div");
-        b.className = "burst";
-        b.innerText = "❤";
+/* End scene */
+function endScene() {
+    clearInterval(heartInterval);
 
-        let x = (Math.random() - 0.5) * 600 + "px";
-        let y = (Math.random() - 0.5) * 600 + "px";
+    let lines = document.querySelectorAll('.line');
+    let title = document.getElementById('title');
 
-        b.style.left = "50%";
-        b.style.top = "50%";
-        b.style.setProperty('--x', x);
-        b.style.setProperty('--y', y);
+    lines.forEach((line, i) => {
+        setTimeout(() => {
+            line.classList.add("fly-out");
+        }, i * 120);
+    });
 
-        document.body.appendChild(b);
-        setTimeout(() => b.remove(), 2000);
-    }
+    title.classList.add("fly-out");
+
+    setTimeout(() => {
+        document.getElementById("finalHeart").classList.add("show");
+    }, 1500);
+}
+
+/* Restart */
+function restart() {
+    location.reload();
 }
 </script>
 
