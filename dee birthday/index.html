@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Dee ❤</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+        color: white;
+    }
+
+    .bg {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: url('dee.jpg') center/cover no-repeat;
+        filter: brightness(0.5);
+    }
+
+    .overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        z-index: 2;
+    }
+
+    .tap {
+        font-size: 1.5em;
+        background: rgba(0,0,0,0.6);
+        padding: 15px 25px;
+        border-radius: 10px;
+        cursor: pointer;
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .content {
+        display: none;
+        max-width: 700px;
+    }
+
+    h1 {
+        font-size: 2.5em;
+        color: #ffccdd;
+        margin-bottom: 20px;
+    }
+
+    /* Bounce */
+    @keyframes bounceIn {
+        0% { transform: scale(0.3) translateY(-200px); opacity: 0; }
+        50% { transform: scale(1.1) translateY(20px); opacity: 1; }
+        70% { transform: scale(0.95) translateY(-10px); }
+        100% { transform: scale(1) translateY(0); }
+    }
+
+    .bounce {
+        animation: bounceIn 1s ease;
+    }
+
+    /* Typing text */
+    .line {
+        margin: 10px 0;
+        font-size: 1.2em;
+        min-height: 1.5em;
+    }
+
+    /* Floating hearts */
+    .heart {
+        position: fixed;
+        color: #ff4d6d;
+        font-size: 20px;
+        animation: floatUp linear forwards;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+        20% { opacity: 1; }
+        100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    /* Burst */
+    .burst {
+        position: fixed;
+        font-size: 22px;
+        color: #ff3366;
+        animation: explode 2s ease-out forwards;
+        z-index: 3;
+    }
+
+    @keyframes explode {
+        0% { transform: scale(0.5); opacity: 1; }
+        100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="overlay">
+    <div class="tap" onclick="start()">Tap to open 🎁</div>
+
+    <div class="content" id="content">
+        <h1 id="title">Happy Birthday Dee ❤</h1>
+
+        <div class="line" data-text="You're one of the best gifts🎁Thika gifted me."></div>
+        <div class="line" data-text="as in, think of it this way🤔😁😁,"></div>
+        <div class="line" data-text="I am a better woman🥰today for knowing you🤭,"></div>
+        <div class="line" data-text="interacting😚 with you and learning from you🤗."></div>
+        <div class="line" data-text="If last year's april meets this year's april me,"></div>
+        <div class="line" data-text="she will be super proud of whom i have grown😊,"></div>
+        <div class="line" data-text="Into, and you're the master piece of it,"></div>
+        <div class="line" data-text="every moment that we have shared, has an impact💘 on me,"></div>
+        <div class="line" data-text="some aren't that pleasing😒but the major are the best😌💙,"></div>
+        <div class="line" data-text="May the Most High Lord bless you abundantly"></div>
+        <div class="line" data-text="reward you for being a kind and a loving man to me,"></div>
+        <div class="line" data-text="may he give you every reason to smile."></div>
+        <div class="line" data-text="I don't have much to make your birthday memorable,may this leave a mark in your heart🥰"></div>
+        <div class="line" data-text="just know that this was tailored with lots of love❤,"></div>
+        <div class="line" data-text="Happiest birthday, mister tall, dark and handsome 😘"></div>
+    </div>
+</div>
+
+<audio id="music" src="oasis.mp3"></audio>
+
+<script>
+let partyTriggered = false;
+
+function start() {
+    document.querySelector('.tap').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+
+    let music = document.getElementById('music');
+    music.play().catch(()=>{});
+
+    document.getElementById('title').classList.add('bounce');
+
+    typeLines(); // start typing immediately
+
+    setInterval(createHeart, 300);
+
+    music.addEventListener("timeupdate", () => {
+        if (music.currentTime >= 39 && !partyTriggered) {
+            partyTriggered = true;
+            partyBurst();
+        }
+    });
+}
+
+// WORD-BY-WORD typing
+function typeLines() {
+    let lines = document.querySelectorAll('.line');
+    let speed = 250; // typing speed per word
+
+    let delay = 0;
+
+    lines.forEach(line => {
+        let text = line.getAttribute("data-text");
+        let words = text.split(" ");
+        line.textContent = "";
+
+        words.forEach((word, i) => {
+            setTimeout(() => {
+                line.textContent += (i === 0 ? "" : " ") + word;
+            }, delay + (i * speed));
+        });
+
+        delay += words.length * speed + 400; // small gap before next line
+    });
+}
+
+// Floating hearts
+function createHeart() {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "❤";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+
+// Party burst
+function partyBurst() {
+    for (let i = 0; i < 80; i++) {
+        let b = document.createElement("div");
+        b.className = "burst";
+        b.innerText = "❤";
+
+        let x = (Math.random() - 0.5) * 600 + "px";
+        let y = (Math.random() - 0.5) * 600 + "px";
+
+        b.style.left = "50%";
+        b.style.top = "50%";
+        b.style.setProperty('--x', x);
+        b.style.setProperty('--y', y);
+
+        document.body.appendChild(b);
+        setTimeout(() => b.remove(), 2000);
+    }
+}
+</script>
+
+</body>
+</html>
